@@ -5,7 +5,7 @@ const request = indexedDB.open("budget", 1);
 request.onupgradeneeded = function(event) {
 
     const db = event.target.result;
-    db.createObjectStore("pending", {autoIncrement: true});
+    const objectStore = db.createObjectStore("pending", {autoIncrement: true});
 };
 
 request.onsuccess = function(event) {
@@ -49,7 +49,7 @@ function checkDatabase() {
                 headers: {
                     Accept: "application/json, text/plain, */*",
                     "Content-Type": "application/json"
-                }
+                },
             })
             .then(response => response.json())
             .then(() => {
@@ -62,3 +62,5 @@ function checkDatabase() {
         }
     };
 }
+
+window.addEventListener("online", checkDatabase);
