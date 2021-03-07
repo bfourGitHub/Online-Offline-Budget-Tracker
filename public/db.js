@@ -5,7 +5,7 @@ const request = indexedDB.open("budget", 1);
 request.onupgradeneeded = function(event) {
 
     const db = event.target.result;
-    const objectStore = db.createObjectStore("pending", {autoIncrement: true});
+    db.createObjectStore("pending", {autoIncrement: true});
 };
 
 request.onsuccess = function(event) {
@@ -42,6 +42,7 @@ function checkDatabase() {
 
 
     getAll.onsuccess = function() {
+        
         if (getAll.result.length > 0) {
             fetch("/api/transaction/bulk", {
                 method: "POST",
